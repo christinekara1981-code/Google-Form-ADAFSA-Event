@@ -184,6 +184,12 @@
       text-align: center;
     }
 
+    .qr-card.featured {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: min(100%, 360px);
+    }
+
     input:focus,
     select:focus,
     textarea:focus {
@@ -312,8 +318,8 @@
         </div>
 
         <div class="field">
-          <label for="email">Email address</label>
-          <input id="email" name="Email address" type="email" autocomplete="email">
+          <label for="email">Email address *</label>
+          <input id="email" name="Email address" type="email" autocomplete="email" required>
         </div>
 
         <div class="field">
@@ -358,6 +364,10 @@
               <div class="qr-card">
                 <img src="instagram-greenmotors-qr.png" alt="Instagram QR code">
                 <span>Instagram</span>
+              </div>
+              <div class="qr-card featured">
+                <img src="service-package-offers-qr.png" alt="Service package offers QR code">
+                <span>Checkout our latest Service Package Offers!</span>
               </div>
             </div>
           </section>

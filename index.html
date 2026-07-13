@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Green MOtors x ADAFSA Event Form</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18202f;
+      --muted: #697386;
+      --line: #d8dee8;
+      --panel: #ffffff;
+      --page: #f4f6f9;
+      --accent: #0f766e;
+      --accent-strong: #115e59;
+      --danger: #b42318;
+      --ok: #137333;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    .shell {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0;
+    }
+
+    header {
+      padding: 24px 0 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .brand-logo {
+      width: min(360px, 100%);
+      height: auto;
+      display: block;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    form {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 16px 40px rgba(25, 34, 49, 0.08);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid #c7d0dc;
+      border-radius: 6px;
+      padding: 10px 12px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    .checkbox-group {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid #c7d0dc;
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    .check-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .check-option input {
+      width: 18px;
+      min-height: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      accent-color: var(--accent);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 3px solid rgba(15, 118, 110, 0.18);
+      border-color: var(--accent);
+    }
+
+    .help {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    button {
+      min-height: 46px;
+      border: 0;
+      border-radius: 6px;
+      padding: 0 18px;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--accent-strong);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.68;
+    }
+
+    .status {
+      min-height: 24px;
+      font-weight: 700;
+    }
+
+    .status.ok {
+      color: var(--ok);
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    .setup-warning {
+      display: none;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      border: 1px solid #f5c16c;
+      border-radius: 6px;
+      background: #fff8e6;
+      color: #7a4d00;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .setup-warning.show {
+      display: block;
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 22px, 960px);
+        padding: 18px 0;
+      }
+
+      form {
+        padding: 18px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        align-items: stretch;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div class="brand">
+        <img class="brand-logo" src="green-motors-logo.png" alt="Green Motors">
+      </div>
+      <h1>Green MOtors x ADAFSA Event Form</h1>
+      <p class="lead">Submit your details and the request will be saved automatically into the connected Google Sheet.</p>
+    </header>
+
+    <div id="setupWarning" class="setup-warning">
+      Google Sheets saving is not connected yet. Paste your deployed Apps Script web app URL into
+      <strong>GOOGLE_SCRIPT_URL</strong> inside this HTML file.
+    </div>
+
+    <form id="bookingForm" novalidate>
+      <div class="grid">
+        <div class="field">
+          <label for="fullName">Full name *</label>
+          <input id="fullName" name="Full name" autocomplete="name" required>
+        </div>
+
+        <div class="field">
+          <label for="phone">Mobile number *</label>
+          <input id="phone" name="Mobile number" type="tel" autocomplete="tel" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="Email address" type="email" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="location">Location *</label>
+          <select id="location" name="Location" required>
+            <option value="">Select location</option>
+            <option>AUH</option>
+            <option>Dubai</option>
+            <option>Sharjah</option>
+            <option>RAK</option>
+            <option>Al Ain</option>
+            <option>Fujairak</option>
+          </select>
+        </div>
+
+        <div class="field wide">
+          <label>Giveaways received</label>
+          <div class="checkbox-group">
+            <label class="check-option">
+              <input type="checkbox" name="Giveaways received" value="Free Car Wash Voucher">
+              Free Car Wash Voucher
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="Giveaways received" value="Free Vehicle Health Check Voucher">
+              Free Vehicle Health Check Voucher
+            </label>
+            <label class="check-option">
+              <input type="checkbox" name="Giveaways received" value="Saving Coupon Booklet">
+              Saving Coupon Booklet
+            </label>
+          </div>
+        </div>
+
+        <div class="field wide">
+          <label for="message">Additional notes</label>
+          <textarea id="message" name="Additional notes" placeholder="Tell us anything important about the request."></textarea>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="submitBtn" type="submit">Submit form</button>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    const GOOGLE_SCRIPT_URL = "";
+
+    const form = document.querySelector("#bookingForm");
+    const statusBox = document.querySelector("#status");
+    const submitBtn = document.querySelector("#submitBtn");
+    const setupWarning = document.querySelector("#setupWarning");
+
+    if (!GOOGLE_SCRIPT_URL) {
+      setupWarning.classList.add("show");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!form.reportValidity()) {
+        return;
+      }
+
+      if (!GOOGLE_SCRIPT_URL) {
+        setStatus("Please connect the Google Apps Script URL first.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      setStatus("Saving...", "");
+
+      const formData = new FormData(form);
+      const payload = {};
+
+      for (const [key, value] of formData.entries()) {
+        if (payload[key]) {
+          payload[key] = `${payload[key]}, ${value}`;
+        } else {
+          payload[key] = value;
+        }
+      }
+
+      payload["Submitted at"] = new Date().toISOString();
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        form.reset();
+        setStatus("Saved to Google Sheet.", "ok");
+      } catch (error) {
+        setStatus("Could not save. Please check the Apps Script URL.", "error");
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    function setStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = `status ${type}`;
+    }
+  </script>
+</body>
+</html>

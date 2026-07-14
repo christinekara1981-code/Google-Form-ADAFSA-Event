@@ -400,6 +400,13 @@
         return;
       }
 
+      const selectedGiveaways = form.querySelectorAll('input[name="Giveaways received"]:checked');
+      if (selectedGiveaways.length === 0) {
+        setStatus("Please select at least one giveaway.", "error");
+        form.querySelector('input[name="Giveaways received"]').focus();
+        return;
+      }
+
       if (!GOOGLE_SCRIPT_URL) {
         setStatus("Please connect the Google Apps Script URL first.", "error");
         return;
